@@ -14,5 +14,5 @@
    Screen: othersigns "Memo for signature.pdf" "Reviewer" "Memo reviewed.pdf"; open "Memo reviewed.pdf"; scroll 1 610; point "✓ Signed by ROE.RICHARD.M.1234567891"
 7. Say: The approver picks their field and signs it the same way.
    Screen: click "Approver"; saveas "Memo approved.pdf"; click "Sign…"
-8. Say: Both signatures check out, because each new one is added after the ones before it.
+8. Say: Both fields now show a green check mark: each signature is valid, and adding yours did not break the reviewer's.
    Screen: finish; picture "two-signatures"

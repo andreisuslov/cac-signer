@@ -43,7 +43,7 @@ Each video is under a minute. The GIFs below play here without sound; the links 
 
 ![Video 3: drawing fields for two other people, then signing after the first one](docs/videos/03-fields-for-others.gif)
 
-[▶ Watch with narration (0:36)](https://andreisuslov.github.io/cac-signer/videos/03-fields-for-others.mp4)
+[▶ Watch with narration (0:38)](https://andreisuslov.github.io/cac-signer/videos/03-fields-for-others.mp4)
 
 ## What it does
 

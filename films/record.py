@@ -596,7 +596,7 @@ def capture(take, script, number, total):
     shown = take.perform(lines)
     timeline = {"title": title, "number": number, "of": total, "captured": time.strftime("%Y-%m-%d"),
                 "pictures": take.pictures,
-                "lines": [{"say": line["say"], "steps": steps} for line, steps in zip(lines, shown)]}
+                "lines": [{"say": line["say"], "screen": line["screen"], "steps": steps} for line, steps in zip(lines, shown)]}
     (folder / "timeline.json").write_text(json.dumps(timeline, indent=1))
     print(f"{script.stem}: {take.shots} stills", flush=True)
 
@@ -609,6 +609,13 @@ def render(stem):
     """The film, its GIF and poster, and the README pictures it holds, from the last capture."""
     folder = BUILD / stem
     timeline = json.loads((folder / "timeline.json").read_text())
+    # The words come from the script as it is now; the stills only fit if no Screen line changed.
+    title, lines = parse((LESSONS / f"{stem}.md").read_text())
+    if [line["screen"] for line in lines] != [line.get("screen") for line in timeline["lines"]]:
+        sys.exit(f"{stem}: a Screen line changed since the last capture. Capture it again: python films/record.py {stem}")
+    timeline["title"] = title
+    for line, now in zip(timeline["lines"], lines):
+        line["say"] = now["say"]
     for line, voice in zip(timeline["lines"], voiced(timeline["lines"], folder)):
         line.update(voice)
     (folder / "timeline.json").write_text(json.dumps(timeline, indent=1))

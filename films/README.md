@@ -46,6 +46,8 @@ A capture of all three takes under a minute, and a render about a minute per les
 | Anything in `films/src` | `--render` |
 | `SPOKEN` in the recorder | `--render`; only new words are spoken |
 
+`--render` takes the words and the title from the scripts as they are now, and stops if a `Screen` line changed since the last capture.
+
 ## What a script says
 
 Each numbered line has a `Say:`, which is the voice and the caption, and a `Screen:`, which is what the video does on that line. Steps run in order, split by `;`. A label is the words on the screen; one that starts with `#`, `.` or `[` is a CSS selector. Pages and points are in PDF points from the page's top-left corner.
