@@ -13,7 +13,7 @@ Open a PDF, pick its signature field or draw one where the signature goes, press
 **[Download CAC Signer for Mac](https://github.com/andreisuslov/cac-signer/releases/latest/download/CAC-Signer.dmg)**, for Macs with Apple silicon or Intel and macOS 12 or later. A ZIP copy and older versions are on the [releases page](https://github.com/andreisuslov/cac-signer/releases).
 
 1. Open the downloaded **CAC-Signer.dmg** and drag **CAC Signer** into **Applications**.
-2. Open **CAC Signer** from Applications. The first time, macOS stops it and says it could not verify the app, because CAC Signer is not signed or notarized by Apple ([what that means](https://support.apple.com/en-us/102445)). Click **Done**.
+2. Open **CAC Signer** from Applications. The first time, macOS stops it and says it could not verify the app, because CAC Signer is not signed or notarized by Apple ([what that means](https://support.apple.com/en-us/102445)). Click **Done** (or **OK**).
 3. Open **System Settings**, click **Privacy & Security**, and scroll down to **Security**. Next to "CAC Signer was blocked to protect your Mac", click **Open Anyway**, then confirm with your Mac's password or Touch ID. The button is there for about an hour after step 2.
 4. If macOS asks once more, click **Open Anyway**. From then on, CAC Signer opens like any other app.
 

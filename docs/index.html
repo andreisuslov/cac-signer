@@ -17,6 +17,8 @@
       h2 { margin: 0 0 12px; font-size: 22px; }
       video { display: block; width: 100%; border-radius: 8px; background: #000; }
       a { color: var(--accent); }
+      .button { display: inline-block; padding: 10px 22px; border-radius: 8px; background: var(--accent); color: #fff; font-weight: 600; text-decoration: none; }
+      section p { margin: 0 0 10px; }
     </style>
   </head>
   <body>
@@ -28,6 +30,12 @@
           <p>Sign PDFs with the certificate on your CAC, on a Mac. Video instructions, each under a minute.</p>
         </div>
       </header>
+      <section id="download">
+        <h2>Download</h2>
+        <p><a class="button" href="https://github.com/andreisuslov/cac-signer/releases/latest/download/CAC-Signer.dmg">Download CAC Signer for Mac</a></p>
+        <p>For Macs with Apple silicon or Intel and macOS 12 or later. Open the DMG and drag CAC Signer into Applications.</p>
+        <p>CAC Signer is not signed or notarized by Apple (<a href="https://support.apple.com/en-us/102445">what that means</a>), so the first time you open it macOS stops it. Click Done (or OK), then open System Settings, click Privacy &amp; Security, scroll down to Security and click <strong>Open Anyway</strong> next to CAC Signer. After that it opens like any other app. The <a href="https://github.com/andreisuslov/cac-signer#download">project page</a> has the steps in full.</p>
+      </section>
       <section id="sign-a-form">
         <h2>1. Sign a form</h2>
         <video src="videos/01-sign-a-form.mp4" poster="videos/01-sign-a-form.jpg" controls preload="none"></video>

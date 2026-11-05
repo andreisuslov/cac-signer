@@ -17,9 +17,9 @@ jobs:
   mac:
     runs-on: macos-15
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: npm
@@ -43,7 +43,7 @@ jobs:
 
       # Lets anyone check that the downloads were built here from this commit:
       # gh attestation verify CAC-Signer.dmg --repo andreisuslov/cac-signer
-      - uses: actions/attest-build-provenance@v2
+      - uses: actions/attest-build-provenance@v4
         with:
           subject-path: dist/CAC-Signer.*
 

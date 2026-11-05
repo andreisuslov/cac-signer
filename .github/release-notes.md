@@ -11,7 +11,7 @@ CAC Signer {version} runs on Macs with Apple silicon or Intel, with macOS 12 or 
 
 CAC Signer is not signed or notarized by Apple ([what that means](https://support.apple.com/en-us/102445)). macOS stops apps like that the first time you open them, so you approve it once:
 
-1. Open **CAC Signer** from Applications. macOS says it could not verify the app. Click **Done**.
+1. Open **CAC Signer** from Applications. macOS says it could not verify the app. Click **Done** (or **OK**).
 2. Open **System Settings**, click **Privacy & Security**, and scroll down to **Security**. Next to "CAC Signer was blocked to protect your Mac", click **Open Anyway**. The button is there for about an hour after step 1.
 3. Confirm with your Mac's password or Touch ID, and click **Open Anyway** if macOS asks once more.
 
