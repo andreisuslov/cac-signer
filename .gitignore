@@ -1,0 +1,7 @@
+node_modules/
+src-tauri/target/
+src-tauri/gen/
+films/build/
+.venv/
+.DS_Store
+__pycache__/

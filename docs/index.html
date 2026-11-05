@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CAC Signer: video instructions</title>
+    <style>
+      :root { color-scheme: light dark; --bg: #f5f5f7; --panel: #fff; --text: #1d1d1f; --muted: #6e6e73; --accent: #0a5ad4; }
+      @media (prefers-color-scheme: dark) { :root { --bg: #1e1e20; --panel: #2a2a2d; --text: #f5f5f7; --muted: #98989d; --accent: #4c8dff; } }
+      body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif; }
+      main { max-width: 980px; margin: 0 auto; padding: 48px 24px 64px; }
+      header { display: flex; gap: 20px; align-items: center; margin-bottom: 36px; }
+      header img { width: 72px; height: 72px; }
+      h1 { margin: 0; font-size: 34px; }
+      header p, .note { margin: 4px 0 0; color: var(--muted); }
+      section { margin: 0 0 40px; padding: 20px; border-radius: 14px; background: var(--panel); }
+      h2 { margin: 0 0 12px; font-size: 22px; }
+      video { display: block; width: 100%; border-radius: 8px; background: #000; }
+      a { color: var(--accent); }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <img src="app-icon.png" alt="" />
+        <div>
+          <h1>CAC Signer</h1>
+          <p>Sign PDFs with the certificate on your CAC, on a Mac. Video instructions, each under a minute.</p>
+        </div>
+      </header>
+      <section id="sign-a-form">
+        <h2>1. Sign a form</h2>
+        <video src="videos/01-sign-a-form.mp4" poster="videos/01-sign-a-form.jpg" controls preload="none"></video>
+      </section>
+      <section id="add-a-field">
+        <h2>2. Add a signature field</h2>
+        <video src="videos/02-add-a-field.mp4" poster="videos/02-add-a-field.jpg" controls preload="none"></video>
+      </section>
+      <section id="fields-for-others">
+        <h2>3. Fields for other signers</h2>
+        <video src="videos/03-fields-for-others.mp4" poster="videos/03-fields-for-others.jpg" controls preload="none"></video>
+      </section>
+      <p class="note">The code, the build steps and the scripts of these videos are on <a href="https://github.com/andreisuslov/cac-signer">GitHub</a>.</p>
+    </main>
+  </body>
+</html>

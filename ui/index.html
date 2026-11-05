@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CAC Signer</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="app">
+      <section id="viewer" class="viewer">
+        <div id="welcome" class="welcome">
+          <p>Drop a PDF here</p>
+          <button id="choose" type="button">Choose PDF…</button>
+        </div>
+        <div id="pages" class="pages" hidden></div>
+      </section>
+
+      <aside class="side">
+        <header>
+          <h1>CAC Signer</h1>
+          <p>Sign a PDF's signature fields with the certificate on your CAC.</p>
+        </header>
+
+        <section id="doc-section" hidden>
+          <div class="row">
+            <h2>Document</h2>
+            <button id="choose-other" type="button" class="link">Open another…</button>
+          </div>
+          <p id="file-name"></p>
+          <p id="file-dir"></p>
+        </section>
+
+        <section id="fields-section" hidden>
+          <h2>Signature fields</h2>
+          <ul id="fields"></ul>
+          <p id="fields-note" class="note"></p>
+        </section>
+
+        <section>
+          <div class="row">
+            <h2>Certificate</h2>
+            <button id="refresh" type="button" class="link">Refresh</button>
+          </div>
+          <select id="identity"></select>
+          <p id="identity-note" class="note"></p>
+        </section>
+
+        <footer>
+          <p id="status" role="status"></p>
+          <div class="actions">
+            <button id="reveal" type="button" class="link" hidden>Show in Finder</button>
+            <button id="save-fields" type="button" hidden>Save Without Signing…</button>
+            <button id="sign" type="button" class="primary" disabled>Sign…</button>
+          </div>
+        </footer>
+      </aside>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>
