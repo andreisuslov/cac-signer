@@ -1,0 +1,58 @@
+# Builds the Mac app for Apple silicon and Intel when a version tag is pushed (git tag v0.2.0 &&
+# git push origin v0.2.0), and publishes it as a GitHub release with the DMG, a ZIP and checksums.
+# The app is ad-hoc signed, not signed with an Apple Developer ID, so first-time users approve it
+# with Open Anyway; the release notes say how.
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+  id-token: write
+  attestations: write
+
+jobs:
+  mac:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Rust for Apple silicon and Intel
+        run: rustup target add aarch64-apple-darwin x86_64-apple-darwin
+
+      - name: Build
+        run: |
+          npm ci
+          npx tauri build --target universal-apple-darwin --bundles app,dmg
+
+      - name: Package
+        run: |
+          bundle=src-tauri/target/universal-apple-darwin/release/bundle
+          codesign --verify --deep --strict "$bundle/macos/CAC Signer.app"
+          mkdir dist
+          cp "$bundle"/dmg/*.dmg dist/CAC-Signer.dmg
+          ditto -c -k --sequesterRsrc --keepParent "$bundle/macos/CAC Signer.app" dist/CAC-Signer.zip
+          cd dist && shasum -a 256 CAC-Signer.dmg CAC-Signer.zip > SHA256SUMS.txt
+
+      # Lets anyone check that the downloads were built here from this commit:
+      # gh attestation verify CAC-Signer.dmg --repo andreisuslov/cac-signer
+      - uses: actions/attest-build-provenance@v2
+        with:
+          subject-path: dist/CAC-Signer.*
+
+      - name: Publish
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          version="${GITHUB_REF_NAME#v}"
+          sed "s/{version}/$version/g" .github/release-notes.md > notes.md
+          { echo; echo '```'; cat dist/SHA256SUMS.txt; echo '```'; } >> notes.md
+          gh release create "$GITHUB_REF_NAME" dist/CAC-Signer.dmg dist/CAC-Signer.zip dist/SHA256SUMS.txt \
+            --title "CAC Signer $version" --notes-file notes.md

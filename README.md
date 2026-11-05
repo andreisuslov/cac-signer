@@ -8,6 +8,21 @@ Sign PDFs with the certificate on your CAC, on a Mac, without Adobe Acrobat.
 
 Open a PDF, pick its signature field or draw one where the signature goes, press Sign, and type your PIN in the window macOS shows. The signature is a standard PDF signature that Acrobat, Preview and other readers check, and the private key never leaves the card.
 
+## Download
+
+**[Download CAC Signer for Mac](https://github.com/andreisuslov/cac-signer/releases/latest/download/CAC-Signer.dmg)**, for Macs with Apple silicon or Intel and macOS 12 or later. A ZIP copy and older versions are on the [releases page](https://github.com/andreisuslov/cac-signer/releases).
+
+1. Open the downloaded **CAC-Signer.dmg** and drag **CAC Signer** into **Applications**.
+2. Open **CAC Signer** from Applications. The first time, macOS stops it and says it could not verify the app, because CAC Signer is not signed or notarized by Apple ([what that means](https://support.apple.com/en-us/102445)). Click **Done**.
+3. Open **System Settings**, click **Privacy & Security**, and scroll down to **Security**. Next to "CAC Signer was blocked to protect your Mac", click **Open Anyway**, then confirm with your Mac's password or Touch ID. The button is there for about an hour after step 2.
+4. If macOS asks once more, click **Open Anyway**. From then on, CAC Signer opens like any other app.
+
+On macOS 12, the button is in System Preferences, under Security & Privacy, on the General tab. Apple's own guide to these steps is [Open a Mac app from an unknown developer](https://support.apple.com/guide/mac-help/open-a-mac-app-from-an-unknown-developer-mh40616/mac).
+
+Signing and notarizing a Mac app takes a paid Apple Developer membership, which this free app does not have. Its code is all here, GitHub builds every download from it ([how to check](#check-a-download)), and you can [build the app yourself](#build-it-yourself) instead.
+
+**Before you sign**, insert your CAC in a card reader your Mac recognizes. If Keychain Access shows your certificates when the card is in, CAC Signer can use them. To see DoD signatures as valid rather than "not trusted on this Mac", install the DoD root certificates in Keychain Access.
+
 ## Video instructions
 
 Each video is under a minute. The GIFs below play here without sound; the links under them open the narrated version.
@@ -42,24 +57,6 @@ Each video is under a minute. The GIFs below play here without sound; the links 
 | --- | --- | --- |
 | ![A signed training request](docs/screenshots/signed.png) | ![Two empty fields on a memo](docs/screenshots/fields-for-others.png) | ![A memo with two signatures](docs/screenshots/two-signatures.png) |
 
-## Install
-
-CAC Signer is built from source, which takes a few minutes the first time.
-
-1. Install the Xcode command line tools (`xcode-select --install`), [Rust](https://rustup.rs) and [Node.js](https://nodejs.org).
-2. Build the app:
-
-   ```sh
-   git clone https://github.com/andreisuslov/cac-signer.git
-   cd cac-signer
-   npm install
-   npm run build
-   ```
-
-3. Drag `src-tauri/target/release/bundle/macos/CAC Signer.app` into Applications.
-
-You need macOS 12 or later and a card reader that macOS can read: if Keychain Access shows your card's certificates when the card is in, CAC Signer can use them. To see DoD signatures as valid rather than "not trusted on this Mac", install the DoD root certificates in Keychain Access.
-
 You can also open a PDF from Finder with Open With, or by dropping it on the app's icon in the Dock.
 
 ## How a signature is made
@@ -86,6 +83,32 @@ These are refused on purpose, with a message that says why:
 - XFA-only forms, which only Acrobat can draw
 - files certified or locked against the change you are making. A file that allows filling in forms but no other changes can have its existing fields signed, but no new ones added.
 
+## Build it yourself
+
+Building takes a few minutes the first time.
+
+1. Install the Xcode command line tools (`xcode-select --install`), [Rust](https://rustup.rs) and [Node.js](https://nodejs.org).
+2. Build the app:
+
+   ```sh
+   git clone https://github.com/andreisuslov/cac-signer.git
+   cd cac-signer
+   npm install
+   npm run build
+   ```
+
+3. Drag `src-tauri/target/release/bundle/macos/CAC Signer.app` into Applications. An app you build yourself opens without the Open Anyway step.
+
+## Check a download
+
+GitHub builds each release from this code (`.github/workflows/release.yml`) and records which commit each file came from. With the [GitHub CLI](https://cli.github.com), you can check a download:
+
+```sh
+gh attestation verify CAC-Signer.dmg --repo andreisuslov/cac-signer
+```
+
+The release page also lists each file's SHA-256 checksum, which `shasum -a 256 CAC-Signer.dmg` prints for the file you have.
+
 ## Development
 
 | Folder | What it holds |
@@ -95,6 +118,7 @@ These are refused on purpose, with a message that says why:
 | `tests/formats` | The format tests |
 | `docs/lessons` | The video scripts |
 | `films` | What makes the videos, GIFs and pictures ([manual](films/README.md)) |
+| `.github` | The release workflow and the release notes |
 
 ```sh
 npm run dev                             # run the app without bundling it
@@ -103,6 +127,8 @@ cd src-tauri && cargo test              # unit tests of the PDF code; no card ne
 ```
 
 The format tests need Python with reportlab, pypdf, pyhanko and pillow (`python3 -m venv .venv && .venv/bin/pip install reportlab pypdf pyhanko pillow`), and qpdf and Poppler from Homebrew. Ghostscript, ImageMagick and Google Chrome are used when present.
+
+To publish a new version, raise `version` in `src-tauri/tauri.conf.json`, `src-tauri/Cargo.toml` and `package.json`, then push a tag such as `v0.2.0`. The release workflow builds the app and publishes the release.
 
 ## License
 
